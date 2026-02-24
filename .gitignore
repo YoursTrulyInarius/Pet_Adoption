@@ -1,0 +1,13 @@
+# User-generated uploads
+/uploads/pets/*
+/uploads/shelters/*
+!/uploads/pets/placeholder.jpg
+!/uploads/shelters/placeholder.jpg
+
+# Development and system files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Ignore actual config, track example config
+/config/config.php

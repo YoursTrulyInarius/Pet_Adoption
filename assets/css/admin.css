@@ -1,0 +1,280 @@
+/* assets/css/admin.css */
+
+:root {
+    --sidebar-width: 280px;
+    --sidebar-bg: var(--complementary-color);
+    --main-bg: #f5f7fb;
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Base Body Reset for Dashboards */
+body.dashboard-page {
+    background: var(--main-bg);
+}
+
+/* Dashboard Layout */
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+    /* Ensure the background on the left matches sidebar even if it's not full-height for some reason */
+    background: linear-gradient(to right, var(--sidebar-bg) var(--sidebar-width), var(--main-bg) var(--sidebar-width));
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    color: white;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Sidebar Scrollbar Customization */
+.dashboard-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.dashboard-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dashboard-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.sidebar-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    margin-bottom: 40px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-nav li {
+    margin-bottom: 8px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 20px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.sidebar-nav a i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-nav a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav li.active a {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 8px 20px rgba(42, 157, 143, 0.3);
+}
+
+/* Main Content Area */
+.dashboard-main {
+    flex-grow: 1;
+    background: var(--main-bg);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Top Navigation Bar / Header */
+.dashboard-header {
+    height: 80px;
+    background: white;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e1e8ed;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.dashboard-header h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--complementary-color);
+    margin: 0;
+}
+
+.dashboard-header p {
+    color: #8c98a4;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Content Container */
+.dashboard-content {
+    padding: 40px;
+    max-width: 1400px;
+    width: 100%;
+}
+
+/* Premium Stat Cards */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: white;
+    padding: 24px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: var(--box-shadow);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.stat-info h4 {
+    color: #8c98a4;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.stat-info p {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--complementary-color);
+    margin: 0;
+}
+
+/* Box Component Refresh */
+.box {
+    background: white;
+    border-radius: 24px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    padding: 30px;
+    height: 100%;
+}
+
+/* Activity Items */
+.activity-feed {
+    list-style: none;
+    padding: 0;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin: 0 -10px;
+    border-radius: 16px;
+    transition: background 0.2s;
+}
+
+.activity-item:hover {
+    background: #f8fbff;
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+    .dashboard-sidebar {
+        width: 80px;
+        min-width: 80px;
+        padding: 20px 10px;
+    }
+
+    .sidebar-brand span,
+    .sidebar-nav a span {
+        display: none;
+    }
+
+    .sidebar-brand {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .sidebar-nav a {
+        justify-content: center;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-wrapper {
+        flex-direction: column;
+        background: var(--main-bg);
+    }
+
+    .dashboard-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .dashboard-content {
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        padding: 0 20px;
+    }
+}

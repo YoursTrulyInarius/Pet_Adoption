@@ -1,0 +1,66 @@
+<?php
+// my_applications.php
+include 'includes/header.php';
+Auth::requireRole('adopter');
+$db = Database::getConnection();
+
+$stmt = $db->prepare("SELECT a.*, p.name as pet_name, s.shelter_name 
+                     FROM applications a 
+                     JOIN pets p ON a.pet_id = p.id 
+                     JOIN shelters s ON p.shelter_id = s.id 
+                     WHERE a.adopter_id = ? 
+                     ORDER BY a.applied_at DESC");
+$stmt->execute([$_SESSION['user_id']]);
+$apps = $stmt->fetchAll();
+
+function getStatusColor($status) {
+    switch ($status) {
+        case 'approved': return 'var(--primary-color)';
+        case 'rejected': return 'var(--danger)';
+        case 'pending': return 'var(--secondary-color)';
+        default: return '#666';
+    }
+}
+?>
+
+<div class="container" style="padding: 40px 0;">
+    <h2 style="color: var(--complementary-color); margin-bottom: 30px;">My Adoption Applications</h2>
+
+    <?php if ($apps): ?>
+        <div class="card" style="padding: 20px;">
+            <div style="overflow-x: auto;">
+                <table style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 2px solid var(--light-grey);">
+                            <th style="padding: 12px;">Pet</th>
+                            <th style="padding: 12px;">Shelter</th>
+                            <th style="padding: 12px;">Date Applied</th>
+                            <th style="padding: 12px;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($apps as $app): ?>
+                            <tr style="border-bottom: 1px solid var(--light-grey);">
+                                <td style="padding: 12px; font-weight: 600;"><?php echo $app['pet_name']; ?></td>
+                                <td style="padding: 12px;"><?php echo $app['shelter_name']; ?></td>
+                                <td style="padding: 12px;"><?php echo date('M d, Y', strtotime($app['applied_at'])); ?></td>
+                                <td style="padding: 12px;">
+                                    <span style="padding: 4px 10px; border-radius: 20px; color: white; font-size: 0.85rem; background: <?php echo getStatusColor($app['status']); ?>; text-transform: capitalize;">
+                                        <?php echo $app['status']; ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="card" style="padding: 40px; text-align: center;">
+            <p style="color:#666; margin-bottom:20px;">You haven't applied for any pets yet.</p>
+            <a href="pets.php" class="btn btn-primary">Browse Pets</a>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php include 'includes/footer.php'; ?>
