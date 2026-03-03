@@ -95,17 +95,25 @@ $breeds = $db->query("SELECT * FROM breeds ORDER BY species, name")->fetchAll();
 </div>
 
 <script>
+const breedData = <?php echo json_encode($breeds); ?>;
+
 // Filter breeds based on species
 document.getElementById('species-select').addEventListener('change', function() {
     const species = this.value;
     const breedSelect = document.getElementById('breed-select');
-    const options = breedSelect.querySelectorAll('option');
     
-    options.forEach(opt => {
-        if (!opt.value) return;
-        opt.style.display = opt.dataset.species === species ? 'block' : 'none';
+    // Clear current options except the first one
+    breedSelect.innerHTML = '<option value="">Select Breed</option>';
+    
+    // Filter and add new options
+    breedData.forEach(breed => {
+        if (breed.species === species) {
+            const option = document.createElement('option');
+            option.value = breed.id;
+            option.textContent = breed.name;
+            breedSelect.appendChild(option);
+        }
     });
-    breedSelect.value = "";
 });
 
 // Image preview

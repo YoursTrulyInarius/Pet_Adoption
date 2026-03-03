@@ -120,16 +120,35 @@ $images = $stmt->fetchAll();
 </div>
 
 <script>
-// Filter breeds logic same as add_pet.php
-document.getElementById('species-select').addEventListener('change', function() {
-    const species = this.value;
+const breedData = <?php echo json_encode($breeds); ?>;
+
+function updateBreeds(species, selectedBreedId = null) {
     const breedSelect = document.getElementById('breed-select');
-    breedSelect.querySelectorAll('option').forEach(opt => {
-        if (!opt.value) return;
-        opt.style.display = opt.dataset.species === species ? 'block' : 'none';
+    
+    // Store current value if not provided
+    if (selectedBreedId === null) selectedBreedId = breedSelect.value;
+    
+    // Clear current options except the first one
+    breedSelect.innerHTML = '<option value="">Select Breed</option>';
+    
+    // Filter and add new options
+    breedData.forEach(breed => {
+        if (breed.species === species) {
+            const option = document.createElement('option');
+            option.value = breed.id;
+            option.textContent = breed.name;
+            if (breed.id == selectedBreedId) option.selected = true;
+            breedSelect.appendChild(option);
+        }
     });
-    breedSelect.value = "";
+}
+
+document.getElementById('species-select').addEventListener('change', function() {
+    updateBreeds(this.value);
 });
+
+// Initial load to filter based on current pet species
+updateBreeds(document.getElementById('species-select').value, <?php echo $pet['breed_id'] ?: 'null'; ?>);
 </script>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

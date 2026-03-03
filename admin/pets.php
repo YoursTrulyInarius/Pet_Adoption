@@ -61,7 +61,9 @@ $pets = $db->query("SELECT p.*, s.shelter_name FROM pets p LEFT JOIN shelters s 
                         <tbody>
                             <?php foreach ($pets as $p): ?>
                                 <tr style="border-bottom: 1px solid #f8f9fa;" id="p-row-<?php echo $p['id']; ?>">
-                                    <td style="padding: 15px; font-weight:700; color: var(--complementary-color);"><?php echo $p['name']; ?></td>
+                                    <td style="padding: 15px; font-weight:700; color: var(--complementary-color);">
+                                        <span class="pet-detail-trigger" data-id="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></span>
+                                    </td>
                                     <td style="padding: 15px; color:#636e72;"><?php echo $p['species']; ?></td>
                                     <td style="padding: 15px; color:#636e72;"><?php echo $p['shelter_name'] ?: 'Unassigned'; ?></td>
                                     <td style="padding: 15px;">
@@ -106,5 +108,6 @@ function deletePet(pid) {
 }
 </script>
 
+<script src="../assets/js/admin_pet_modal.js"></script>
 <?php include '../includes/footer.php'; ?>
 

@@ -98,14 +98,14 @@ $stats = [
                 </div>
                 <div class="activity-feed">
                     <?php
-                    $recent = $db->query("SELECT name, species, created_at FROM pets ORDER BY created_at DESC LIMIT 5")->fetchAll();
+                    $recent = $db->query("SELECT id, name, species, created_at FROM pets ORDER BY created_at DESC LIMIT 5")->fetchAll();
                     foreach ($recent as $r): ?>
                         <div class="activity-item">
                             <div style="width: 44px; height: 44px; border-radius: 12px; background: #f0f4f8; display: flex; align-items: center; justify-content: center; color: var(--primary-color); margin-right: 15px;">
                                 <i class="fas fa-plus"></i>
                             </div>
                             <div style="flex-grow:1;">
-                                <p style="font-weight:700; color: var(--complementary-color); margin:0;"><?php echo $r['name']; ?></p>
+                                <p style="font-weight:700; color: var(--complementary-color); margin:0;" class="pet-detail-trigger" data-id="<?php echo $r['id']; ?>"><?php echo $r['name']; ?></p>
                                 <p style="font-size:0.85rem; color:#8c98a4; margin:0;">Added as a new <?php echo $r['species']; ?></p>
                             </div>
                             <span style="font-size: 0.8rem; color: #b2bec3; font-weight: 600;"><?php echo timeAgo($r['created_at']); ?></span>
@@ -117,5 +117,6 @@ $stats = [
     </main>
 </div>
 
+<script src="../assets/js/admin_pet_modal.js"></script>
 <?php include '../includes/footer.php'; ?>
 

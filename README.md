@@ -9,8 +9,11 @@ The system currently supports the following verified features:
 - **Pet Adoption Flow**: Users can browse available pets, click "Apply to Adopt", and submit a detailed application form.
 - **Application Tracking**: Adopters have a localized dashboard tracking their application statuses.
 - **Admin Application Management**: Admins can review all pending adoption requests, alongside seeing red notification badges on the sidebar indicating pending workloads.
-- **Applicant Modals**: Admins can click on an applicant's name to instantly pull up a detailed modal outlining their reasoning and household status.
+- [x] **Adopter Dashboards**: Users can track their applications and view care guides assigned to them.
+- [x] **Admin Pet Modals**: Admins can click on any pet's name within the dashboard or pet list to instantly view a premium card-style modal containing the pet’s full details and image gallery.
+- [x] **Applicant Modals**: Admins can click on an applicant's name to instantly pull up a detailed modal outlining their reasoning and household status.
 - **Automated Emailing**: Upon an Admin clicking 'Approve' or 'Reject', the system uses PHPMailer to securely send an HTML-formatted status update to the applicant's email inbox.
+- **Dynamic Breed Filtering**: When creating or editing pet listings, the breed options automatically update based on the selected species (e.g., selecting 'Dog' only shows dog breeds). This is implemented across both Admin and Shelter interfaces.
 - **"Already Adopted" Indicators**: The public UI correctly greys out adopted pets, applies a visual badge, and disables their application buttons dynamically.
 
 ## Setup Instructions
@@ -30,6 +33,6 @@ The system contains pre-seeded default data.
 
 **Default Admin Credentials:**
 - **Email:** `admin@pawsome.com`
-- **Password:** `password123`
+- **Password:** `Admin@1234`
 
-*(Adopter and Shelter accounts are also seeded, passwords default to `password123`)*
+*(Adopter and Shelter accounts are also seeded, passwords default to `Admin@1234`)*
